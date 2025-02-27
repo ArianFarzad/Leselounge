@@ -9,16 +9,17 @@ services:
     volumes:
       - mongo-data:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
 
   backend:
     build: ./backend
     container_name: backend
     ports:
-      - "5000:5000"
+      - "${PORT}:${PORT}"
     environment:
-      MONGO_URI: mongodb://root:example@mongo:27017/buchcommunity?authSource=admin
+      MONGO_URI: ${MONGO_URI}
+      PORT: ${PORT}
     depends_on:
       - mongo
 
@@ -26,7 +27,7 @@ services:
     build: ./frontend
     container_name: frontend
     ports:
-      - "5173:5173"
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     depends_on:
       - backend
 

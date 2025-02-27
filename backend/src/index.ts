@@ -1,28 +1,28 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import { Request, Response } from "express";
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URI is not defined in the environment variables!");
+}
+const mongoUri = process.env.MONGO_URI;
 
-mongoose.connect(process.env.MONGO_URI || 'mongodb://mongo:27017/buchcommunity')
-    .then(() => console.log('MongoDB verbunden'))
-    .catch(err => console.error('MongoDB Verbindungsfehler:', err));
+mongoose.connect(mongoUri)
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Backend läuft!');
+// Test route
+app.get('/', (req, res) => {
+    res.send('Backend is running!');
 });
 
 app.listen(PORT, () => {
-    console.log(`Server läuft auf http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
