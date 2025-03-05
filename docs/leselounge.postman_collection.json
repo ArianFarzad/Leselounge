@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "7f3938c7-4e02-45a5-9753-bf20fc1d4c91",
+		"name": "leselounge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39620507",
+		"_collection_link": "https://pse-skyrim-map-group2.postman.co/workspace/PSE-Skyrim-Map-Group2~88e063d0-70f9-421d-8b9a-7d87e35379d4/collection/39620507-7f3938c7-4e02-45a5-9753-bf20fc1d4c91?action=share&source=collection_link&creator=39620507"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "auth controller",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "register user",
+							"originalRequest": {
+								"method": "POST",
+								"header": []
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "login user",
+							"originalRequest": {
+								"method": "POST",
+								"header": []
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	]
+}
