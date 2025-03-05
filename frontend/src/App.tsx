@@ -1,14 +1,18 @@
+// App.tsx
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react'; // Korrekte Imports
+import Register from './components/Register';
 
-import { Button, HStack } from '@chakra-ui/react';
-import './App.css';
 
 function App() {
-
   return (
-    <HStack>
-      <Button>Click me</Button>
-      <Button>Click me</Button>
-    </HStack>
+    <ChakraProvider value={defaultSystem}>
+      <Router>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
+    </ChakraProvider>
   );
 }
 
