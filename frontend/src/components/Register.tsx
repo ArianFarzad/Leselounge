@@ -70,11 +70,11 @@ const Register = () => {
   };
 
   return (
-    <Box p={4} maxWidth="400px" mx="auto" mt={10} >
+    <Box p={10} maxWidth="500px" mx="auto" mt={50} border="1px solid">
       <Toaster />
       <VStack align="stretch">
         <Heading as="h1" size="3xl" textAlign="center" mb={6}>
-          Create an account
+          Start your journey with us
         </Heading>
         <FormControl id="username" isInvalid={isUsernameInvalid}>
           <FormLabel>Username</FormLabel>
@@ -85,6 +85,7 @@ const Register = () => {
             placeholder="Your username"
             size="lg"
             borderColor={isUsernameInvalid ? 'red.500': 'gray.200'}
+            transition="border-color 0.3s ease-in-out"
           />
           {isUsernameInvalid && (
             <FormErrorMessage textColor={'red'}>{usernameError}</FormErrorMessage>
@@ -99,6 +100,7 @@ const Register = () => {
             placeholder="Your email"
             size="lg"
             borderColor={isEmailInvalid ? 'red.500': 'gray.200'}
+            transition="border-color 0.3s ease-in-out"
           />
           {isEmailInvalid && <FormErrorMessage textColor={'red'}>{emailError}</FormErrorMessage>}
         </FormControl>
@@ -111,6 +113,7 @@ const Register = () => {
             placeholder="Your password"
             size="lg"
             borderColor={isPasswordInvalid ? 'red.500': 'gray.200'}
+            transition="border-color 0.3s ease-in-out"
           />
           {isPasswordInvalid && (
             <FormErrorMessage textColor={'red'}>{passwordError}</FormErrorMessage>
@@ -128,14 +131,14 @@ const Register = () => {
           />
         </FormControl>
         <Button colorScheme="teal" onClick={handleRegister} size="lg" mt={4}>
-          Register
+          Create Account
         </Button>
         <Text textAlign="center" mt={4}>
           <VStack align="center">
             Already have an account?{' '}
             <Text as="span" color="teal.500" cursor="pointer">
               <HStack>
-                <FiLogIn /> Login
+                <FiLogIn /> Sign in here
               </HStack>
             </Text>
           </VStack>
