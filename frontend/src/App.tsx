@@ -1,6 +1,6 @@
 // In App.js:
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Register from '@/components/Register.tsx';
+import RegisterPage from '@/pages/RegisterPage';
 import { Provider } from '@/components/ui/provider';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <Provider>
       <Router>
         <Routes>
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </Router>
     </Provider>

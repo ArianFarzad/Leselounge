@@ -9,9 +9,7 @@ interface ProviderProps {
 export function Provider({ children }: ProviderProps) {
   return (
     <ChakraProvider value={defaultSystem}>
-      <ColorModeProvider>
-        {children}
-      </ColorModeProvider>
+      <ColorModeProvider>{children}</ColorModeProvider>
     </ChakraProvider>
   );
 }

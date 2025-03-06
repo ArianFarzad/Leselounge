@@ -63,78 +63,110 @@ const Register = () => {
         } else if (passwordError) {
           setPasswordError(passwordError);
         } else {
-          toaster.create({ title: 'Error creating account', type: 'error' });
+          toaster.create({ title: err.response.data?.message, type: 'error' });
         }
-      } else toaster.create({ title: 'Error creating account', type: 'error' });
+      }
     }
   };
 
   return (
-    <Box p={10} maxWidth="500px" mx="auto" mt={50} border="1px solid">
+    <Box
+      pt={3}
+      pb={10}
+      pl={10}
+      pr={10}
+      maxWidth="500px"
+      border="1px solid"
+      borderColor="rgba(255, 255, 255, 0.2)"
+      height="84.5vh"
+      bg="rgba(255, 255, 255, 0.5)"
+      backdropFilter="blur(15px)"
+      boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
+    >
       <Toaster />
-      <VStack align="stretch">
-        <Heading as="h1" size="3xl" textAlign="center" mb={6}>
+      <VStack align="stretch" mt={10}>
+        <Heading as="h1" size="3xl" textAlign="center" mb={6} color={'Black'}>
           Start your journey with us
         </Heading>
         <FormControl id="username" isInvalid={isUsernameInvalid}>
-          <FormLabel>Username</FormLabel>
+          <FormLabel color={'Black'}>Username</FormLabel>
           <Input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Your username"
             size="lg"
-            borderColor={isUsernameInvalid ? 'red.500': 'gray.200'}
+            borderColor={isUsernameInvalid ? 'red.500' : 'Black'}
             transition="border-color 0.3s ease-in-out"
+            color={'Black'}
+            _focus={{ borderColor: 'green.700' }}
           />
           {isUsernameInvalid && (
-            <FormErrorMessage textColor={'red'}>{usernameError}</FormErrorMessage>
+            <FormErrorMessage textColor={'red'}>
+              {usernameError}
+            </FormErrorMessage>
           )}
         </FormControl>
         <FormControl id="email" isInvalid={isEmailInvalid}>
-          <FormLabel>Email</FormLabel>
+          <FormLabel color={'Black'}>Email</FormLabel>
           <Input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email"
             size="lg"
-            borderColor={isEmailInvalid ? 'red.500': 'gray.200'}
+            borderColor={isEmailInvalid ? 'red.500' : 'Black'}
             transition="border-color 0.3s ease-in-out"
+            color={'Black'}
+            _focus={{ borderColor: 'green.700' }}
           />
-          {isEmailInvalid && <FormErrorMessage textColor={'red'}>{emailError}</FormErrorMessage>}
+          {isEmailInvalid && (
+            <FormErrorMessage textColor={'red'}>{emailError}</FormErrorMessage>
+          )}
         </FormControl>
         <FormControl id="password" isInvalid={isPasswordInvalid}>
-          <FormLabel>Password</FormLabel>
+          <FormLabel color={'Black'}>Password</FormLabel>
           <Input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Your password"
             size="lg"
-            borderColor={isPasswordInvalid ? 'red.500': 'gray.200'}
+            borderColor={isPasswordInvalid ? 'red.500' : 'Black'}
             transition="border-color 0.3s ease-in-out"
+            color={'Black'}
+            _focus={{ borderColor: 'green.700' }}
           />
           {isPasswordInvalid && (
-            <FormErrorMessage textColor={'red'}>{passwordError}</FormErrorMessage>
+            <FormErrorMessage textColor={'red'}>
+              {passwordError}
+            </FormErrorMessage>
           )}
         </FormControl>
         <FormControl id="repeatPassword">
-          <FormLabel>Repeat password</FormLabel>
+          <FormLabel color={'Black'}>Confirm password</FormLabel>
           <Input
             type="password"
             value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
-            placeholder="Repeat your password"
+            placeholder="Confirm your password"
             size="lg"
-            borderColor="gray.200"
+            borderColor="Black"
+            color={'Black'}
+            _focus={{ borderColor: 'green.700' }}
           />
         </FormControl>
-        <Button colorScheme="teal" onClick={handleRegister} size="lg" mt={4}>
+        <Button
+          colorScheme="teal"
+          onClick={handleRegister}
+          size="lg"
+          mt={4}
+          backgroundColor={'green.300'}
+        >
           Create Account
         </Button>
         <Text textAlign="center" mt={4}>
-          <VStack align="center">
+          <VStack align="center" color={'Black'}>
             Already have an account?{' '}
             <Text as="span" color="teal.500" cursor="pointer">
               <HStack>
