@@ -84,7 +84,7 @@ const Register = () => {
       boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
     >
       <Toaster />
-      <VStack align="stretch" mt={10}>
+      <VStack align="stretch">
         <Heading as="h1" size="3xl" textAlign="center" mb={6} color={'Black'}>
           Start your journey with us
         </Heading>
@@ -166,14 +166,14 @@ const Register = () => {
           Create Account
         </Button>
         <Text textAlign="center" mt={4}>
-          <VStack align="center" color={'Black'}>
+          <HStack align="center" color={'Black'} justifyContent={'space-between'}>
             Already have an account?{' '}
             <Text as="span" color="teal.500" cursor="pointer">
               <HStack>
                 <FiLogIn /> Sign in here
               </HStack>
             </Text>
-          </VStack>
+          </HStack>
         </Text>
       </VStack>
     </Box>
