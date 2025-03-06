@@ -9,29 +9,19 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { FormLabel, FormControl } from '@chakra-ui/form-control';
-import { useToast } from '@chakra-ui/toast';
+import { Toaster, toaster } from "@/components/ui/toaster"
 import { FiLogIn } from 'react-icons/fi';
 import axios from 'axios';
-
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const toast = useToast();
 
   const handleRegister = async (): Promise<void> => {
     if (password !== repeatPassword) {
-      toast({
-        title: 'Fehler',
-        description: 'Die Passwörter stimmen nicht überein.',
-        status: 'error',
-        duration: 5000,
-        position: 'bottom-right',
-        isClosable: true,
-        containerStyle: { zIndex: 9999 },
-      });
+      toaster.create({ title: 'Passwords do not match', type: 'error' });
       return;
     }
 
@@ -42,30 +32,15 @@ const Register = () => {
         password,
       });
 
-      toast({
-        title: 'Registrierung erfolgreich',
-        description: 'Du hast dich erfolgreich registriert.',
-        status: 'success',
-        duration: 5000,
-        position: 'bottom-right',
-        isClosable: true,
-        containerStyle: { zIndex: 9999 },
-      });
+      toaster.create({ title: 'Account created', type: 'success' });
     } catch (error: any) {
-      toast({
-        title: 'Fehler',
-        description: error.response?.data?.message || 'Ein unbekannter Fehler ist aufgetreten.',
-        status: 'error',
-        duration: 5000,
-        position: 'bottom-right',
-        isClosable: true,
-        containerStyle: { zIndex: 9999 },
-      });
+      toaster.create({ title: error.response?.data?.error?.message || 'Registration failed', type: 'error' });
     }
   };
 
   return (
     <Box p={4} maxWidth="400px" mx="auto" mt={10}>
+      <Toaster />
       <VStack align="stretch">
         <Heading as="h1" size="3xl" textAlign="center" mb={6}>
           Create an account
