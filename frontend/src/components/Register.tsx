@@ -1,13 +1,5 @@
 import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Input,
-  VStack,
-  Heading,
-  Text,
-  HStack,
-} from '@chakra-ui/react';
+import { Box, Button, Input, VStack, Heading, Text } from '@chakra-ui/react';
 import {
   FormLabel,
   FormControl,
@@ -16,12 +8,15 @@ import {
 import { Toaster, toaster } from '@/components/ui/toaster';
 import { FiLogIn } from 'react-icons/fi';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const navigate = useNavigate();
 
   const [emailError, setEmailError] = useState('');
   const [usernameError, setUsernameError] = useState('');
@@ -68,6 +63,10 @@ const Register = () => {
       }
     }
   };
+
+  const handleNavigateToLogin = () => {
+    navigate('/login')
+  }
 
   return (
     <Box
@@ -172,6 +171,7 @@ const Register = () => {
           display={'flex'}
           flexDirection={'row'}
           justifyContent={'space-between'}
+          onClick={handleNavigateToLogin}
         >
           Already have an account?{' '}
           <Text

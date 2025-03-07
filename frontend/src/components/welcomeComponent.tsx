@@ -7,14 +7,12 @@ const WelcomeComponent: React.FC = () => {
   const [quote, setQuote] = useState<string>('');
   const [author, setAuthor] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [showContent, setShowContent] = useState<boolean>(false);
 
   const fetchQuote = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/qoutes');
       setQuote(response.data.quoteText);
       setAuthor(response.data.quoteAuthor);
-      setShowContent(true);
     } catch (error) {
       console.error(error);
     } finally {
