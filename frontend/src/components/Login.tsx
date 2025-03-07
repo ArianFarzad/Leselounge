@@ -29,7 +29,7 @@ const Login: React.FC = () => {
       if (axios.isAxiosError(err) && err.response) {
         toaster.create({ title: err.response.data?.message, type: 'error' });
       } else {
-        toaster.create({ title: 'Unexpected error occured', type: 'error' });
+        toaster.create({ title: 'An unknown error occurred', type: 'error' });
       }
     }
   };

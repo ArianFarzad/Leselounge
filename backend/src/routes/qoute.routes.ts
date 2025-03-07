@@ -1,4 +1,4 @@
-import {  Router } from 'express';
+import { Router } from 'express';
 import { get_qoute } from '../controllers/qoute.controller';
 
 const router = Router();

@@ -1,7 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-
 interface IUser extends Document {
   _id: string;
   username: string;
@@ -11,7 +10,6 @@ interface IUser extends Document {
   updatedAt: Date;
   comparePassword: (password: string) => Promise<boolean>;
 }
-
 
 const UserSchema = new Schema<IUser>(
   {
@@ -40,9 +38,8 @@ const UserSchema = new Schema<IUser>(
   },
   {
     timestamps: true,
-  }
+  },
 );
-
 
 UserSchema.pre<IUser>('save', async function (next) {
   if (this.isModified('password')) {
@@ -52,11 +49,11 @@ UserSchema.pre<IUser>('save', async function (next) {
   next();
 });
 
-
-UserSchema.methods.comparePassword = function (password: string): Promise<boolean> {
+UserSchema.methods.comparePassword = function (
+  password: string,
+): Promise<boolean> {
   return bcrypt.compare(password, this.password);
 };
-
 
 const User = model<IUser>('User', UserSchema);
 export default User;

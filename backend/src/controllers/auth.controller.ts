@@ -8,7 +8,12 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(400).json({ message: 'E-Mail is already associated with an account. Please use a different email.' });
+      res
+        .status(400)
+        .json({
+          message:
+            'E-Mail is already associated with an account. Please use a different email.',
+        });
       return;
     }
 
@@ -42,7 +47,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const token = generateToken(user._id);
 
     res.status(200).json({ token, user });
-
   } catch (error) {
     res.status(500).json({ message: 'Error logging in: ', error });
   }
