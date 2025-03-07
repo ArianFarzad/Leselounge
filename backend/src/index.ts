@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import authRoutes from './routes/auth.routes';
+import qouteRoutes from './routes/qoute.routes';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -25,6 +26,7 @@ mongoose
   .catch((err) => console.error('MongoDB connection error:', err));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/qoutes', qouteRoutes);
 
 
 app.listen(PORT, () => {
