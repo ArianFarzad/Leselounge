@@ -28,7 +28,7 @@ const WelcomeComponent: React.FC = () => {
 
   return (
     <Box
-      backgroundImage="url(../../public/books.jpg)"
+      backgroundImage="url(../../books.jpg)"
       backgroundSize="cover"
       backgroundPosition="center"
       width="50%"

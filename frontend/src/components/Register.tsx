@@ -165,15 +165,25 @@ const Register = () => {
         >
           Create Account
         </Button>
-        <Text textAlign="center" mt={4}>
-          <HStack align="center" color={'Black'} justifyContent={'space-between'}>
-            Already have an account?{' '}
-            <Text as="span" color="teal.500" cursor="pointer">
-              <HStack>
-                <FiLogIn /> Sign in here
-              </HStack>
-            </Text>
-          </HStack>
+        <Text
+          textAlign="center"
+          mt={4}
+          color={'Black'}
+          display={'flex'}
+          flexDirection={'row'}
+          justifyContent={'space-between'}
+        >
+          Already have an account?{' '}
+          <Text
+            as="span"
+            color="teal.500"
+            cursor="pointer"
+            display={'flex'}
+            flexDirection={'row'}
+            gap={'0.5em'}
+          >
+            <FiLogIn /> Sign in here
+          </Text>
         </Text>
       </VStack>
     </Box>
