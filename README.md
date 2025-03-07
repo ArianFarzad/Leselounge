@@ -68,6 +68,10 @@ The application uses a single `.env` file located in the **root directory** to m
     ```sh
     docker-compose up --build
     ```
+    or
+    ```sh
+    make start
+    ```
 3. **Access the Application**: 
     open your web browser and navigate to `http://localhost:8000`
 
@@ -77,7 +81,10 @@ Application: To stop the application, press `Ctrl+C` in the terminal where Docke
     ```sh
     docker-compose down
     ```
-
+    or
+    ```
+    make clean
+    ```
 
 Now you should have Leselounge up and running on your local machine using Docker. Enjoy exploring and managing your reading experience! 
 
