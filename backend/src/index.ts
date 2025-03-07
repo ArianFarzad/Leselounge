@@ -1,6 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import authRoutes from './routes/auth.routes';
+import qouteRoutes from './routes/qoute.routes';
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Load environment variables
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const app = express();
 const PORT = process.env.PORT;
@@ -18,10 +25,8 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Test route
-app.get('/', (req, res) => {
-  res.send('Backend is running!');
-});
+app.use('/api/auth', authRoutes);
+app.use('/api/qoutes', qouteRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
