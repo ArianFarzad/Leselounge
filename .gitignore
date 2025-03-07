@@ -3,4 +3,3 @@ backend/dist
 frontend/node_modules
 .idea
 .env
-Makefile
