@@ -88,4 +88,9 @@ Application: To stop the application, press `Ctrl+C` in the terminal where Docke
 
 Now you should have Leselounge up and running on your local machine using Docker. Enjoy exploring and managing your reading experience! 
 
+## Postman Collection  
+In the `docs` directory, we have provided a Postman collection to help you easily test and interact with the API endpoints. This collection includes pre-configured requests for all available routes, along with examples of request bodies, and headers. Simply import the collection into Postman to get started and explore the API's functionality.  
 
+For authentication-protected endpoints, make sure to include a valid JWT token in the `Authorization` header as `Bearer <token>`. You can generate a token using the appropriate authentication endpoint and update the collection's environment variables with the token for seamless testing.  
+
+This collection serves as a practical tool to streamline your development and integration process.
