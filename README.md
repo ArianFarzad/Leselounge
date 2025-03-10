@@ -73,7 +73,7 @@ The application uses a single `.env` file located in the **root directory** to m
     make start
     ```
 3. **Access the Application**: 
-    open your web browser and navigate to `http://localhost:8000`
+    open your web browser and navigate to `http://localhost:5173`
 
 4. **Stopping the Application**:
 Application: To stop the application, press `Ctrl+C` in the terminal where Docker is running, or run:
