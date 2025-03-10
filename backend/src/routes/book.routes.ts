@@ -3,10 +3,11 @@ import {
   getBookDetailsController,
   getBookDetailsByTitleController,
 } from '../controllers/book.controller';
+import { verifyToken } from '../utils/token';
 
 const router = express.Router();
 
-router.get('/:bookId', getBookDetailsController);
-router.get('/title/:title', getBookDetailsByTitleController);
+router.get('/:bookId', verifyToken, getBookDetailsController);
+router.get('/title/:title', verifyToken, getBookDetailsByTitleController);
 
 export default router;
