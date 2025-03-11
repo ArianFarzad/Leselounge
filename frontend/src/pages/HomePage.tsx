@@ -8,7 +8,7 @@ import { IUser } from '@/types/User';
 const HomePage: React.FC = () => {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
-  const [user, setUser] = useState<IUser>({id: '', email: '', username: ''});
+  const [user, setUser] = useState<IUser>({_id: '', email: '', username: ''});
 
   const fetchUser = async () => {
     try {
