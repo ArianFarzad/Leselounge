@@ -13,18 +13,22 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        email,
-        password,
-      });
-  
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/login',
+        {
+          email,
+          password,
+        },
+      );
+
       const { token, user } = response.data;
-  
+
       localStorage.setItem('token', token);
       localStorage.setItem('userId', user._id);
-  
+
+      navigate('/homepage');
+
       toaster.create({ title: 'Login confirmed', type: 'success' });
-  
     } catch (err: unknown) {
       if (axios.isAxiosError(err) && err.response) {
         toaster.create({ title: err.response.data?.message, type: 'error' });
@@ -36,7 +40,7 @@ const Login: React.FC = () => {
 
   const handleLoginToRegister = () => {
     navigate('/register');
-  }
+  };
 
   return (
     <Box

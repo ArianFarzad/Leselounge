@@ -25,10 +25,10 @@ export const generateToken = (userId: string): string => {
 export const verifyToken = (
   req: Request,
   res: Response,
-  next: NextFunction
-): void => { 
+  next: NextFunction,
+): void => {
   const token = req.header('Authorization')?.split(' ')[1];
-  
+
   if (!token) {
     res.status(401).json({ error: 'No token, authorization denied' });
     return;

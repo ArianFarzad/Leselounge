@@ -10,7 +10,6 @@ import { FiLogIn } from 'react-icons/fi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -37,11 +36,21 @@ const Register = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', {
-        username,
-        email,
-        password,
-      });
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/register',
+        {
+          username,
+          email,
+          password,
+        },
+      );
+
+      const { token, user } = response.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', user._id);
+
+      navigate('/login');
 
       toaster.create({ title: 'Account created', type: 'success' });
     } catch (err: unknown) {
@@ -57,16 +66,16 @@ const Register = () => {
           setUsernameError(usernameError);
         } else if (passwordError) {
           setPasswordError(passwordError);
-        } else {
-          toaster.create({ title: err.response.data?.message, type: 'error' });
         }
+      } else {
+        toaster.create({ title: 'Registration failed', type: 'error' });
       }
     }
   };
 
   const handleNavigateToLogin = () => {
-    navigate('/login')
-  }
+    navigate('/login');
+  };
 
   return (
     <Box

@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { getOrFetchBook, getOrFetchBookByTitle } from '../services/bookService';
 
-
-
-export const getBookDetailsController = async (req: Request, res: Response): Promise<void> => {
+export const getBookDetailsController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { bookId } = req.params;
 
   try {
@@ -30,7 +31,10 @@ export const getBookDetailsController = async (req: Request, res: Response): Pro
   }
 };
 
-export const getBookDetailsByTitleController = async (req: Request, res: Response): Promise<void> => {
+export const getBookDetailsByTitleController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { title } = req.params;
 
   try {

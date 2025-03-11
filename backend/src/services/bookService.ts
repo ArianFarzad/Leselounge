@@ -1,22 +1,25 @@
 import Book from '../models/Book';
 import UserBook from '../models/UserBook';
 
-
 const findBookInDatabase = async (bookId: string) => {
   return await Book.findOne({ bookId });
 };
 
-
 const fetchBookFromAPI = async (bookId: string) => {
   try {
-    const response = await fetch(`https://openlibrary.org/works/${bookId}.json`);
+    const response = await fetch(
+      `https://openlibrary.org/works/${bookId}.json`,
+    );
     const bookData = await response.json();
 
     const book = new Book({
       bookId: bookData.key,
       title: bookData.title,
       author: bookData.authors?.[0]?.name || 'Unknown',
-      description: bookData.description?.value || bookData.description || 'No description available',
+      description:
+        bookData.description?.value ||
+        bookData.description ||
+        'No description available',
       coverImageUrl: bookData.covers
         ? `https://covers.openlibrary.org/b/id/${bookData.covers[0]}-M.jpg`
         : null,
@@ -30,7 +33,6 @@ const fetchBookFromAPI = async (bookId: string) => {
   }
 };
 
-
 export const getOrFetchBook = async (bookId: string) => {
   let book = await findBookInDatabase(bookId);
 
@@ -41,8 +43,11 @@ export const getOrFetchBook = async (bookId: string) => {
   return book;
 };
 
-
-export const addBookToUser = async (userId: string, bookId: string, status: string) => {
+export const addBookToUser = async (
+  userId: string,
+  bookId: string,
+  status: string,
+) => {
   const book = await getOrFetchBook(bookId);
 
   if (!book) {
@@ -63,10 +68,11 @@ const findBookByTitleInDatabase = async (title: string) => {
   return await Book.findOne({ title: { $regex: title, $options: 'i' } });
 };
 
-
 const fetchBookByTitleFromAPI = async (title: string) => {
   try {
-    const response = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}`);
+    const response = await fetch(
+      `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}`,
+    );
     const searchData = await response.json();
 
     if (searchData.docs && searchData.docs.length > 0) {
@@ -92,7 +98,6 @@ const fetchBookByTitleFromAPI = async (title: string) => {
     return null;
   }
 };
-
 
 export const getOrFetchBookByTitle = async (title: string) => {
   let book = await findBookByTitleInDatabase(title);

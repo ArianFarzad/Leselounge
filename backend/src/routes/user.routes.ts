@@ -1,6 +1,9 @@
-import { Router } from "express";
-import { verifyToken } from "../utils/token";
-import { addBookToUserController, getUserBooksController } from "../controllers/user.controller";
+import { Router } from 'express';
+import { verifyToken } from '../utils/token';
+import {
+  addBookToUserController,
+  getUserBooksController,
+} from '../controllers/user.controller';
 
 const router = Router();
 
