@@ -1,8 +1,37 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import NavBar from '@/components/NavBar';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { IUser } from '@/types/User';
 
 const HomePage: React.FC = () => {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+  const [user, setUser] = useState<IUser>({id: '', email: '', username: ''});
+
+  const fetchUser = async () => {
+    try {
+    await axios.get(
+        `http://localhost:5000/api/users/${userId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Cache-Control': 'no-cache',
+            },
+        }
+    ).then((response) => {
+        setUser(response.data.data);
+    });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -29,6 +58,7 @@ const HomePage: React.FC = () => {
             homeContent={<div>Home</div>}
             profileContent={<div>Profile</div>}
             tasksContent={<div>Settings</div>}
+            user={user}
           />
         </Flex>
       </Box>

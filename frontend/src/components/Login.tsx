@@ -1,4 +1,12 @@
-import { Box, Button, Heading, Input, VStack, Text, Field } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Heading,
+  Input,
+  VStack,
+  Text,
+  Field,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import { Toaster, toaster } from './ui/toaster';
 import { PasswordInput } from './ui/password-input';
@@ -64,22 +72,22 @@ const Login: React.FC = () => {
         <Field.Root>
           <Field.Label color={'black'}>Email</Field.Label>
           <Input
-            placeholder='me@example.com'
+            placeholder="me@example.com"
             onChange={(e) => setEmail(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
             borderColor={'Black'}
-            />
+          />
         </Field.Root>
         <Field.Root>
           <Field.Label color={'black'}>Password</Field.Label>
           <PasswordInput
-            placeholder='mySecurePassword'
+            placeholder="mySecurePassword"
             onChange={(e) => setPassword(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
             borderColor={'Black'}
-            />
+          />
         </Field.Root>
         <Button
           colorScheme="teal"

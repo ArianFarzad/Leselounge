@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Box, Button, Input, VStack, Heading, Text, Field } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Input,
+  VStack,
+  Heading,
+  Text,
+  Field,
+} from '@chakra-ui/react';
 import { PasswordInput, PasswordStrengthMeter } from './ui/password-input';
 import { Toaster, toaster } from '@/components/ui/toaster';
 import { FiLogIn } from 'react-icons/fi';
@@ -32,19 +40,11 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/auth/register',
-        {
-          username,
-          email,
-          password,
-        },
-      );
-
-      const { token, user } = response.data;
-
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', user._id);
+      await axios.post('http://localhost:5000/api/auth/register', {
+        username,
+        email,
+        password,
+      });
 
       navigate('/login');
 
@@ -95,46 +95,46 @@ const Register = () => {
         <Field.Root invalid={isUsernameInvalid}>
           <Field.Label color={'black'}>Username</Field.Label>
           <Input
-            placeholder='my_username'
+            placeholder="my_username"
             onChange={(e) => setUsername(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
             borderColor={isUsernameInvalid ? 'red.500' : 'Black'}
-            />
-            <Field.ErrorText>{usernameError}</Field.ErrorText>
+          />
+          <Field.ErrorText>{usernameError}</Field.ErrorText>
         </Field.Root>
         <Field.Root invalid={isEmailInvalid}>
           <Field.Label color={'black'}>Email</Field.Label>
           <Input
-            placeholder='me@example.com'
+            placeholder="me@example.com"
             onChange={(e) => setEmail(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
             borderColor={isEmailInvalid ? 'red.500' : 'Black'}
-            />
-            <Field.ErrorText>{emailError}</Field.ErrorText>
+          />
+          <Field.ErrorText>{emailError}</Field.ErrorText>
         </Field.Root>
         <Field.Root invalid={isPasswordInvalid}>
           <Field.Label color={'black'}>Password</Field.Label>
           <PasswordInput
-            placeholder='mySecurePassword'
+            placeholder="mySecurePassword"
             onChange={(e) => setPassword(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
             borderColor={isPasswordInvalid ? 'red.500' : 'Black'}
-            />
-            <Field.ErrorText>{passwordError}</Field.ErrorText>
+          />
+          <Field.ErrorText>{passwordError}</Field.ErrorText>
         </Field.Root>
         <Field.Root invalid={isPasswordInvalid}>
           <Field.Label color={'black'}>Repeat Password</Field.Label>
           <PasswordInput
-            placeholder='Confirm: mySecurePassword'
+            placeholder="Confirm: mySecurePassword"
             onChange={(e) => setRepeatPassword(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
             borderColor={isPasswordInvalid ? 'red.500' : 'Black'}
-            />
-            <Field.ErrorText>{passwordError}</Field.ErrorText>
+          />
+          <Field.ErrorText>{passwordError}</Field.ErrorText>
         </Field.Root>
         <Button
           colorScheme="teal"

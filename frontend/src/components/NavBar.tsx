@@ -5,17 +5,20 @@ import { FiLogOut } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Toaster, toaster } from './ui/toaster';
+import { IUser } from '@/types/User';
 
 interface NavBarProps {
   homeContent: React.ReactNode;
   profileContent: React.ReactNode;
   tasksContent: React.ReactNode;
+  user: IUser;
 }
 
 const NavBar: React.FC<NavBarProps> = ({
   homeContent,
   profileContent,
   tasksContent,
+  user,
 }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -69,9 +72,9 @@ const NavBar: React.FC<NavBarProps> = ({
         borderRadius={'0.3em'}
       >
         <Avatar.Root>
-          <Avatar.Fallback name="Arian Farzad" />
+          <Avatar.Fallback name={user.username} />
         </Avatar.Root>
-        <Text color={'white'}>Arian Farzad</Text>
+        <Text color={'white'}>{user.username}</Text>
         <Button
           colorScheme="teal"
           size="sm"
