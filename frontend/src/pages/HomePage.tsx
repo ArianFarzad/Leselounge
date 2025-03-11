@@ -8,21 +8,20 @@ import { IUser } from '@/types/User';
 const HomePage: React.FC = () => {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
-  const [user, setUser] = useState<IUser>({_id: '', email: '', username: ''});
+  const [user, setUser] = useState<IUser>({ _id: '', email: '', username: '' });
 
   const fetchUser = async () => {
     try {
-    await axios.get(
-        `http://localhost:5000/api/users/${userId}`,
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Cache-Control': 'no-cache',
-            },
-        }
-    ).then((response) => {
-        setUser(response.data.data);
-    });
+      await axios
+        .get(`http://localhost:5000/api/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Cache-Control': 'no-cache',
+          },
+        })
+        .then((response) => {
+          setUser(response.data.data);
+        });
     } catch (error) {
       console.error(error);
     }

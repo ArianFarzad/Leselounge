@@ -1,7 +1,8 @@
 import React from 'react';
-import { Tabs, Flex, Button, Avatar, Text } from '@chakra-ui/react';
+import { Tabs, Flex, Button, Avatar, Text, Box, Input } from '@chakra-ui/react';
+import { InputGroup } from './ui/input-group';
 import { FaHome, FaUser, FaCheckSquare } from 'react-icons/fa';
-import { FiLogOut } from 'react-icons/fi';
+import { FiLogOut, FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Toaster, toaster } from './ui/toaster';
@@ -62,28 +63,47 @@ const NavBar: React.FC<NavBarProps> = ({
         <Tabs.Content value="profile">{profileContent}</Tabs.Content>
         <Tabs.Content value="tasks">{tasksContent}</Tabs.Content>
       </Tabs.Root>
-      <Flex
-        direction={'row'}
-        gap={'2em'}
-        backgroundColor={'black'}
-        padding={'0.5em'}
-        height={'60%'}
-        alignItems={'center'}
-        borderRadius={'0.3em'}
-      >
-        <Avatar.Root>
-          <Avatar.Fallback name={user.username} />
-        </Avatar.Root>
-        <Text color={'white'}>{user.username}</Text>
-        <Button
-          colorScheme="teal"
-          size="sm"
-          backgroundColor={'green.300'}
-          onClick={handleLogout}
+        <Flex
+          direction={'row'}
+          gap={'2em'}
+          backgroundColor={'gray.900'}
+          padding={'0.5em'}
+          height={'60%'}
+          alignItems={'center'}
+          borderRadius={'0.5em'}
         >
-          <FiLogOut />
-        </Button>
-      </Flex>
+            <InputGroup
+            endElement={
+              <Button
+                size={'xs'}
+                colorScheme="teal"
+                backgroundColor={'green.300'}
+              >
+                <FiSearch />
+              </Button>
+            }
+          >
+            <Input
+              placeholder="Search for books"
+              color={'black'}
+              borderColor={'black'}
+              _focus={{ borderWidth: '2px' }}
+              backgroundColor={'white'}
+            />
+          </InputGroup>
+          <Avatar.Root>
+            <Avatar.Fallback name={user.username} />
+          </Avatar.Root>
+          <Text color={'white'}>{user.username}</Text>
+          <Button
+            colorScheme="teal"
+            size="sm"
+            backgroundColor={'green.300'}
+            onClick={handleLogout}
+          >
+            <FiLogOut />
+          </Button>
+        </Flex>
     </Flex>
   );
 };
