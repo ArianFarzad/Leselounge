@@ -95,7 +95,7 @@ const Register = () => {
         <Field.Root invalid={isUsernameInvalid}>
           <Field.Label color={'black'}>Username</Field.Label>
           <Input
-            placeholder='Your name'
+            placeholder='my_username'
             onChange={(e) => setUsername(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
@@ -106,7 +106,7 @@ const Register = () => {
         <Field.Root invalid={isEmailInvalid}>
           <Field.Label color={'black'}>Email</Field.Label>
           <Input
-            placeholder='Your email'
+            placeholder='me@example.com'
             onChange={(e) => setEmail(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
@@ -117,7 +117,7 @@ const Register = () => {
         <Field.Root invalid={isPasswordInvalid}>
           <Field.Label color={'black'}>Password</Field.Label>
           <PasswordInput
-            placeholder='Your password'
+            placeholder='mySecurePassword'
             onChange={(e) => setPassword(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}
@@ -128,7 +128,7 @@ const Register = () => {
         <Field.Root invalid={isPasswordInvalid}>
           <Field.Label color={'black'}>Repeat Password</Field.Label>
           <PasswordInput
-            placeholder='Repeat your password'
+            placeholder='Confirm: mySecurePassword'
             onChange={(e) => setRepeatPassword(e.target.value)}
             _focus={{ borderWidth: '2px' }}
             color={'Black'}

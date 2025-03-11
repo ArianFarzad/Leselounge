@@ -1,7 +1,7 @@
-import { Box, Button, Heading, Input, VStack, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, Input, VStack, Text, Field } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Toaster, toaster } from './ui/toaster';
-import { FormControl, FormLabel } from '@chakra-ui/form-control';
+import { PasswordInput } from './ui/password-input';
 import { FiUserPlus } from 'react-icons/fi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -61,34 +61,26 @@ const Login: React.FC = () => {
         <Heading as="h1" size="3xl" textAlign="center" mb={6} color={'Black'}>
           Login to Your Account
         </Heading>
-        <FormControl id="email">
-          <FormLabel color={'Black'}>Email</FormLabel>
+        <Field.Root>
+          <Field.Label color={'black'}>Email</Field.Label>
           <Input
-            type="email"
-            value={email}
+            placeholder='me@example.com'
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email"
-            size="lg"
-            borderColor={'Black'}
-            transition="border-color 0.3s ease-in-out"
+            _focus={{ borderWidth: '2px' }}
             color={'Black'}
-            _focus={{ borderColor: 'green.700' }}
-          />
-        </FormControl>
-        <FormControl id="password">
-          <FormLabel color={'Black'}>Password</FormLabel>
-          <Input
-            type="password"
-            value={password}
+            borderColor={'Black'}
+            />
+        </Field.Root>
+        <Field.Root>
+          <Field.Label color={'black'}>Password</Field.Label>
+          <PasswordInput
+            placeholder='mySecurePassword'
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your password"
-            size="lg"
-            borderColor={'Black'}
-            transition="border-color 0.3s ease-in-out"
+            _focus={{ borderWidth: '2px' }}
             color={'Black'}
-            _focus={{ borderColor: 'green.700' }}
-          />
-        </FormControl>
+            borderColor={'Black'}
+            />
+        </Field.Root>
         <Button
           colorScheme="teal"
           onClick={handleLogin}
