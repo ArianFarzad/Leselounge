@@ -18,6 +18,8 @@ import {
   import axios from 'axios';
   import React, { useEffect, useState } from 'react';
   import { IBook } from '@/types/types';
+  import { FiPlus } from 'react-icons/fi';
+  
   
   interface SearchBooksProps {
     bookTitle: string;
@@ -28,13 +30,13 @@ import {
     const token = localStorage.getItem('token');
     const [books, setBooks] = useState<IBook[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [selectedBooks, setSelectedBooks] = useState<string[]>([]); // IDs der ausgewählten Bücher
-    const [selectedStatus, setSelectedStatus] = useState<string>('reading'); // Ausgewählter Status
+    const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
+    const [selectedStatus, setSelectedStatus] = useState<string>('reading');
   
     const status = [
       { value: 'reading', title: 'Reading' },
       { value: 'read', title: 'Read' },
-      { value: 'onHold', title: 'On Hold' },
+      { value: 'onHold', title: 'Paused' },
     ];
   
     const fetchBook = async (title: string) => {
@@ -174,20 +176,15 @@ import {
           </Drawer.Positioner>
         </Portal>
   
-        {/* ActionBar für ausgewählte Bücher */}
         <ActionBar.Root open={selectedBooks.length > 0}>
           <Portal>
             <ActionBar.Positioner>
               <ActionBar.Content>
-                <ActionBar.SelectionTrigger>
-                  {selectedBooks.length} selected
-                </ActionBar.SelectionTrigger>
-                <ActionBar.Separator />
                 <RadioCard.Root
                   value={selectedStatus}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    const value = event.currentTarget.value; // Extrahiere den Wert aus dem Event
-                    setSelectedStatus(value); // Aktualisiere den Zustand
+                    const value = event.currentTarget.value;
+                    setSelectedStatus(value);
                   }}
                 >
                   <HStack>
@@ -202,7 +199,9 @@ import {
                     ))}
                   </HStack>
                 </RadioCard.Root>
-                <Button size="sm">Add</Button>
+                <Button size="lg" backgroundColor={'green.300'} colorScheme={'teal'}>
+                    <FiPlus />
+                </Button>
               </ActionBar.Content>
             </ActionBar.Positioner>
           </Portal>
