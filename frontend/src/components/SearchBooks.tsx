@@ -93,13 +93,18 @@ import {
                           display={'flex'}
                           flexDirection={'row'}
                         >
-                          <Box position="relative" boxSize="150px">
+                          <Box position="relative" width="150px" height="200px" overflow="hidden" borderRadius="md">
                             {isImageLoading && (
                               <Flex
                                 position="absolute"
+                                top="0"
+                                left="0"
+                                right="0"
+                                bottom="0"
                                 justify="center"
                                 align="center"
-                                boxSize="100%"
+                                bg="rgba(255, 255, 255, 0.8)"
+                                zIndex="1"
                               >
                                 <Spinner size="xl" />
                               </Flex>
@@ -107,6 +112,8 @@ import {
                             <Image
                               src={book.coverImageUrl || '/default-cover.jpg'}
                               alt={book.title}
+                              width="100%"
+                              height="100%"
                               objectFit="cover"
                               onLoad={() => setIsImageLoading(false)}
                               onError={() => setIsImageLoading(false)}
