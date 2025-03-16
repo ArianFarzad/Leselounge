@@ -7,7 +7,13 @@ import {
     Image,
     Box,
     Flex,
-    Spinner
+    Spinner,
+    RadioCard,
+    HStack,
+    ActionBar,
+    Checkbox,
+    VStack,
+    Button,
   } from '@chakra-ui/react';
   import axios from 'axios';
   import React, { useEffect, useState } from 'react';
@@ -22,6 +28,14 @@ import {
     const token = localStorage.getItem('token');
     const [books, setBooks] = useState<IBook[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [selectedBooks, setSelectedBooks] = useState<string[]>([]); // IDs der ausgewählten Bücher
+    const [selectedStatus, setSelectedStatus] = useState<string>('reading'); // Ausgewählter Status
+  
+    const status = [
+      { value: 'reading', title: 'Reading' },
+      { value: 'read', title: 'Read' },
+      { value: 'onHold', title: 'On Hold' },
+    ];
   
     const fetchBook = async (title: string) => {
       setIsLoading(true);
@@ -59,6 +73,15 @@ import {
       }
     }, [bookTitle]);
   
+    // Handler für die Auswahl der Bücher
+    const handleBookSelection = (bookId: string) => {
+      if (selectedBooks.includes(bookId)) {
+        setSelectedBooks(selectedBooks.filter((id) => id !== bookId));
+      } else {
+        setSelectedBooks([...selectedBooks, bookId]);
+      }
+    };
+  
     return (
       <Drawer.Root size={'lg'}>
         <Drawer.Trigger asChild>{children}</Drawer.Trigger>
@@ -92,8 +115,22 @@ import {
                           p="4"
                           display={'flex'}
                           flexDirection={'row'}
+                          alignItems="center"
                         >
-                          <Box position="relative" width="150px" height="200px" overflow="hidden" borderRadius="md">
+                          <Checkbox.Root
+                            checked={selectedBooks.includes(book._id)}
+                            onCheckedChange={() => handleBookSelection(book._id)}
+                          >
+                            <Checkbox.HiddenInput />
+                            <Checkbox.Control />
+                          </Checkbox.Root>
+                          <Box
+                            position="relative"
+                            width="150px"
+                            height="200px"
+                            overflow="hidden"
+                            borderRadius="md"
+                          >
                             {isImageLoading && (
                               <Flex
                                 position="absolute"
@@ -119,14 +156,14 @@ import {
                               onError={() => setIsImageLoading(false)}
                             />
                           </Box>
-                          <Flex direction={'column'}>
+                          <VStack align="start" ml="4">
                             <Text fontWeight="bold" fontSize={'1.2em'}>
                               {book.title}
                             </Text>
                             <Text color="fg.muted" fontSize={'1.2em'}>
                               {book.author}
                             </Text>
-                          </Flex>
+                          </VStack>
                         </Box>
                       );
                     }}
@@ -136,6 +173,40 @@ import {
             </Drawer.Content>
           </Drawer.Positioner>
         </Portal>
+  
+        {/* ActionBar für ausgewählte Bücher */}
+        <ActionBar.Root open={selectedBooks.length > 0}>
+          <Portal>
+            <ActionBar.Positioner>
+              <ActionBar.Content>
+                <ActionBar.SelectionTrigger>
+                  {selectedBooks.length} selected
+                </ActionBar.SelectionTrigger>
+                <ActionBar.Separator />
+                <RadioCard.Root
+                  value={selectedStatus}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    const value = event.currentTarget.value; // Extrahiere den Wert aus dem Event
+                    setSelectedStatus(value); // Aktualisiere den Zustand
+                  }}
+                >
+                  <HStack>
+                    {status.map((item) => (
+                      <RadioCard.Item key={item.value} value={item.value}>
+                        <RadioCard.ItemHiddenInput />
+                        <RadioCard.ItemControl>
+                          <RadioCard.ItemText>{item.title}</RadioCard.ItemText>
+                          <RadioCard.ItemIndicator />
+                        </RadioCard.ItemControl>
+                      </RadioCard.Item>
+                    ))}
+                  </HStack>
+                </RadioCard.Root>
+                <Button size="sm">Add</Button>
+              </ActionBar.Content>
+            </ActionBar.Positioner>
+          </Portal>
+        </ActionBar.Root>
       </Drawer.Root>
     );
   };
