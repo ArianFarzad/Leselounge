@@ -1,6 +1,16 @@
-import { Drawer, Portal, Text, CloseButton, Flex } from '@chakra-ui/react';
+import {
+  Drawer,
+  Portal,
+  Text,
+  CloseButton,
+  For,
+  Image,
+  Box,
+  Flex,
+} from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { IBook } from '@/types/types';
 
 interface SearchBooksProps {
   bookTitle: string;
@@ -9,23 +19,38 @@ interface SearchBooksProps {
 
 const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
   const token = localStorage.getItem('token');
+  const [books, setBooks] = useState<IBook[]>([]);
 
   const fetchBook = async (title: string) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/books/title/${title}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.get(
+        `http://localhost:5000/api/books/title/${title}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
-      console.log(response.data);
+      );
+
+      if (response.data && response.data.success && response.data.data) {
+        const bookData = response.data.data;
+        const booksArray = Array.isArray(bookData) ? bookData : [bookData];
+        setBooks(booksArray);
+      } else {
+        console.error('Invalid API response:', response.data);
+        setBooks([]);
+      }
     } catch (error) {
       console.error('Error fetching book from API:', error);
+      setBooks([]);
     }
   };
 
   useEffect(() => {
     if (bookTitle) {
       fetchBook(bookTitle);
+    } else {
+      setBooks([]);
     }
   }, [bookTitle]);
 
@@ -43,7 +68,32 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
               </Drawer.CloseTrigger>
             </Drawer.Header>
             <Drawer.Body>
-              <Text>Search results for: {bookTitle}</Text>
+              {books.length === 0 && <Text>No books found.</Text>}
+              <For each={books}>
+                {(book: IBook) => (
+                  <Box
+                    key={book._id}
+                    gap={'2em'}
+                    borderWidth="1px"
+                    p="4"
+                    display={'flex'}
+                    flexDirection={'row'}
+                  >
+                    <Image
+                      src={book.coverImageUrl || '/default-cover.jpg'}
+                      alt={book.title}
+                    />
+                    <Flex direction={'column'}>
+                      <Text fontWeight="bold" fontSize={'2em'}>
+                        {book.title}
+                      </Text>
+                      <Text color="fg.muted" fontSize={'2em'}>
+                        {book.author}
+                      </Text>
+                    </Flex>
+                  </Box>
+                )}
+              </For>
             </Drawer.Body>
           </Drawer.Content>
         </Drawer.Positioner>

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import NavBar from '@/components/NavBar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { IUser } from '@/types/User';
+import { IUser } from '@/types/types';
 
 const HomePage: React.FC = () => {
   const userId = localStorage.getItem('userId');

@@ -6,7 +6,7 @@ import { FiLogOut, FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Toaster, toaster } from './ui/toaster';
-import { IUser } from '@/types/User';
+import { IUser } from '@/types/types';
 import SearchBooks from './SearchBooks';
 
 interface NavBarProps {
@@ -78,14 +78,14 @@ const NavBar: React.FC<NavBarProps> = ({
         <InputGroup
           endElement={
             <SearchBooks bookTitle={searchQuery}>
-            <Button
-              size={'xs'}
-              colorScheme="teal"
-              backgroundColor={'green.300'}
-              onClick={() => setSearchQuery(searchValue)}
-            >
-              <FiSearch />
-            </Button>
+              <Button
+                size={'xs'}
+                colorScheme="teal"
+                backgroundColor={'green.300'}
+                onClick={() => setSearchQuery(searchValue)}
+              >
+                <FiSearch />
+              </Button>
             </SearchBooks>
           }
         >

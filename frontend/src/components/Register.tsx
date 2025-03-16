@@ -8,7 +8,7 @@ import {
   Text,
   Field,
 } from '@chakra-ui/react';
-import { PasswordInput, PasswordStrengthMeter } from './ui/password-input';
+import { PasswordInput } from './ui/password-input';
 import { Toaster, toaster } from '@/components/ui/toaster';
 import { FiLogIn } from 'react-icons/fi';
 import axios from 'axios';
