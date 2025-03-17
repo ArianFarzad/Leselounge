@@ -178,8 +178,13 @@ import {
   
         <ActionBar.Root open={selectedBooks.length > 0}>
           <Portal>
-            <ActionBar.Positioner>
+            <ActionBar.Positioner
+      bottom={20} float={'left'} position={'relative'} ml={'1em'}>
               <ActionBar.Content>
+                <ActionBar.SelectionTrigger>
+                  Add to your library
+                </ActionBar.SelectionTrigger>
+                <ActionBar.Separator />
                 <RadioCard.Root
                   value={selectedStatus}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
