@@ -4,6 +4,7 @@ import NavBar from '@/components/NavBar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IUser } from '@/types/types';
+import UsersLibrary from '@/components/UsersLibrary';
 
 const HomePage: React.FC = () => {
   const userId = localStorage.getItem('userId');
@@ -54,7 +55,7 @@ const HomePage: React.FC = () => {
           width="100%"
         >
           <NavBar
-            homeContent={<div>Home</div>}
+            homeContent={<UsersLibrary userId={userId} />}
             profileContent={<div>Profile</div>}
             tasksContent={<div>Settings</div>}
             user={user}

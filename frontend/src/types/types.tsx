@@ -12,3 +12,13 @@ export interface IBook {
   description: string;
   coverImageUrl: string | undefined;
 }
+
+export interface ApiBookResponse {
+  _id: string;
+  userId: string;
+  bookId: IBook;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

@@ -215,7 +215,11 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
               >
                 <HStack>
                   {status.map((item) => (
-                    <RadioCard.Item key={item.value} onClick={() => setSelectedStatus(item.value)} value={item.value}>
+                    <RadioCard.Item
+                      key={item.value}
+                      onClick={() => setSelectedStatus(item.value)}
+                      value={item.value}
+                    >
                       <RadioCard.ItemHiddenInput />
                       <RadioCard.ItemControl>
                         <RadioCard.ItemText>{item.title}</RadioCard.ItemText>
