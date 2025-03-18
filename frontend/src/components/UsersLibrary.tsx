@@ -17,7 +17,7 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
     try {
       const response = await axios.get(
         `http://localhost:5000/api/users/${userId}/books`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
 
       console.log('API Response:', response.data);

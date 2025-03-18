@@ -52,7 +52,6 @@ const HomePage: React.FC = () => {
           top={3}
           pl={3}
           pr={3}
-          width="100%"
         >
           <NavBar
             homeContent={<UsersLibrary userId={userId} />}

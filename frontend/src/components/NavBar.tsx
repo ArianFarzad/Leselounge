@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Flex, Input, Button, Avatar, Text, Tabs } from '@chakra-ui/react';
+import {
+  Box,
+  Input,
+  Button,
+  Avatar,
+  Text,
+  Tabs,
+  HStack,
+  Flex,
+} from '@chakra-ui/react';
 import { InputGroup } from './ui/input-group';
 import { FaHome, FaUser, FaCheckSquare } from 'react-icons/fa';
 import { FiLogOut, FiSearch } from 'react-icons/fi';
@@ -45,10 +54,11 @@ const NavBar: React.FC<NavBarProps> = ({
   };
 
   return (
-    <Flex direction="row" justify={'space-between'} width={'100%'}>
+    <Box>
       <Toaster />
       <Tabs.Root defaultValue="home" variant="enclosed" colorScheme="gray">
-        <Tabs.List>
+        <Tabs.List display={'flex'} justifyContent={'space-between'}>
+          <Flex direction={'row'}>
           <Tabs.Trigger value="home">
             <FaHome />
             Home
@@ -61,58 +71,51 @@ const NavBar: React.FC<NavBarProps> = ({
             <FaCheckSquare />
             Settings
           </Tabs.Trigger>
+          </Flex>
+          <HStack gap={2}>
+            <InputGroup
+              endElement={
+                <SearchBooks bookTitle={searchQuery}>
+                  <Button
+                    size={'xs'}
+                    colorScheme="teal"
+                    backgroundColor={'green.300'}
+                    onClick={() => setSearchQuery(searchValue)}
+                  >
+                    <FiSearch />
+                  </Button>
+                </SearchBooks>
+              }
+            >
+              <Input
+                placeholder="Search for books"
+                color={'black'}
+                borderColor={'black'}
+                _focus={{ borderWidth: '2px' }}
+                backgroundColor={'white'}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+            </InputGroup>
+            <Avatar.Root>
+              <Avatar.Fallback name={user.username} />
+            </Avatar.Root>
+            <Text color={'white'}>{user.username}</Text>
+            <Button
+              colorScheme="teal"
+              size="sm"
+              backgroundColor={'green.300'}
+              onClick={handleLogout}
+            >
+              <FiLogOut />
+            </Button>
+          </HStack>
         </Tabs.List>
         <Tabs.Content value="home">{homeContent}</Tabs.Content>
         <Tabs.Content value="profile">{profileContent}</Tabs.Content>
         <Tabs.Content value="tasks">{tasksContent}</Tabs.Content>
       </Tabs.Root>
-      <Flex
-        direction={'row'}
-        gap={'2em'}
-        backgroundColor={'gray.900'}
-        padding={'0.5em'}
-        height={'60%'}
-        alignItems={'center'}
-        borderRadius={'0.5em'}
-      >
-        <InputGroup
-          endElement={
-            <SearchBooks bookTitle={searchQuery}>
-              <Button
-                size={'xs'}
-                colorScheme="teal"
-                backgroundColor={'green.300'}
-                onClick={() => setSearchQuery(searchValue)}
-              >
-                <FiSearch />
-              </Button>
-            </SearchBooks>
-          }
-        >
-          <Input
-            placeholder="Search for books"
-            color={'black'}
-            borderColor={'black'}
-            _focus={{ borderWidth: '2px' }}
-            backgroundColor={'white'}
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </InputGroup>
-        <Avatar.Root>
-          <Avatar.Fallback name={user.username} />
-        </Avatar.Root>
-        <Text color={'white'}>{user.username}</Text>
-        <Button
-          colorScheme="teal"
-          size="sm"
-          backgroundColor={'green.300'}
-          onClick={handleLogout}
-        >
-          <FiLogOut />
-        </Button>
-      </Flex>
-    </Flex>
+    </Box>
   );
 };
 
