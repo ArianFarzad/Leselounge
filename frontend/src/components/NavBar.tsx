@@ -59,18 +59,18 @@ const NavBar: React.FC<NavBarProps> = ({
       <Tabs.Root defaultValue="home" variant="enclosed" colorScheme="gray">
         <Tabs.List display={'flex'} justifyContent={'space-between'}>
           <Flex direction={'row'}>
-          <Tabs.Trigger value="home">
-            <FaHome />
-            Home
-          </Tabs.Trigger>
-          <Tabs.Trigger value="profile">
-            <FaUser />
-            Profile
-          </Tabs.Trigger>
-          <Tabs.Trigger value="tasks">
-            <FaCheckSquare />
-            Settings
-          </Tabs.Trigger>
+            <Tabs.Trigger value="home">
+              <FaHome />
+              Home
+            </Tabs.Trigger>
+            <Tabs.Trigger value="profile">
+              <FaUser />
+              Profile
+            </Tabs.Trigger>
+            <Tabs.Trigger value="tasks">
+              <FaCheckSquare />
+              Settings
+            </Tabs.Trigger>
           </Flex>
           <HStack gap={2}>
             <InputGroup

@@ -13,8 +13,9 @@ import {
   CloseButton,
   DataList,
   Heading,
-  Separator
+  Separator,
 } from '@chakra-ui/react';
+import { Tooltip } from './ui/tooltip';
 
 interface UsersLibraryProps {
   userId: string | null;
@@ -77,22 +78,29 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
     <>
       <Heading as="h1" size="xl" mb={1} mt={4} color={'gray.700'}>
         My Bookshelf
-      </Heading>  
+      </Heading>
       <Separator mb={4} />
       {isLoading ? (
         <Spinner size="xl" />
       ) : books.length > 0 ? (
         <Flex overflow="scroll" width={'1000px'} gap="4" py="4">
           {books.map((book: IBook) => (
-            <Box key={book._id} position="relative" cursor="pointer" _hover={{ scale: 1.1 }}>
-              <Image
-                objectFit="cover"
-                maxW="200px"
-                src={book.coverImageUrl}
-                alt={book.title}
-                borderRadius="md"
-                onClick={() => handleImageClick(book)}
-              />
+            <Box
+              key={book._id}
+              position="relative"
+              cursor="pointer"
+              _hover={{ scale: 1.1 }}
+            >
+              <Tooltip content={book.title}>
+                <Image
+                  objectFit="cover"
+                  maxW="200px"
+                  src={book.coverImageUrl}
+                  alt={book.title}
+                  borderRadius="md"
+                  onClick={() => handleImageClick(book)}
+                />
+              </Tooltip>
             </Box>
           ))}
         </Flex>
@@ -113,12 +121,16 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
                   <DataList.Root orientation="horizontal">
                     <DataList.Item>
                       <DataList.ItemLabel>Author</DataList.ItemLabel>
-                      <DataList.ItemValue>{selectedBook.author}</DataList.ItemValue>
+                      <DataList.ItemValue>
+                        {selectedBook.author}
+                      </DataList.ItemValue>
                     </DataList.Item>
                     <DataList.Item>
                       <DataList.ItemLabel>Status</DataList.ItemLabel>
                       <DataList.ItemValue>
-                        <Badge colorPalette="green">{selectedBook.status}</Badge>
+                        <Badge colorPalette="green">
+                          {selectedBook.status}
+                        </Badge>
                       </DataList.ItemValue>
                     </DataList.Item>
                   </DataList.Root>
