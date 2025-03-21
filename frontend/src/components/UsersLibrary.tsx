@@ -11,7 +11,9 @@ import {
   Dialog,
   Portal,
   CloseButton,
-  DataList
+  DataList,
+  Heading,
+  Separator
 } from '@chakra-ui/react';
 
 interface UsersLibraryProps {
@@ -73,6 +75,10 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
 
   return (
     <>
+      <Heading as="h1" size="xl" mb={1} mt={4} color={'gray.700'}>
+        My Bookshelf
+      </Heading>  
+      <Separator mb={4} />
       {isLoading ? (
         <Spinner size="xl" />
       ) : books.length > 0 ? (
