@@ -7,6 +7,7 @@ export interface IUser {
 export interface IBook {
   _id: string;
   title: string;
+  status: string;
   bookId: string;
   author: string;
   description: string;
