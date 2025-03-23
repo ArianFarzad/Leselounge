@@ -4,7 +4,6 @@ import NavBar from '@/components/NavBar';
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { IUser } from '@/types/types';
-import UsersLibrary from '@/components/UsersLibrary';
 import DisplayBooks from '@/components/DisplayBooks';
 
 const HomePage: React.FC = () => {
