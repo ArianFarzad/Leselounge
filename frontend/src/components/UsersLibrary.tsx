@@ -12,8 +12,6 @@ import {
   Portal,
   CloseButton,
   DataList,
-  Heading,
-  Separator,
 } from '@chakra-ui/react';
 import { Tooltip } from './ui/tooltip';
 
@@ -76,10 +74,6 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
 
   return (
     <>
-      <Heading as="h1" size="xl" mb={1} mt={4} color={'gray.700'}>
-        My Bookshelf
-      </Heading>
-      <Separator mb={4} />
       {isLoading ? (
         <Spinner size="xl" />
       ) : books.length > 0 ? (
