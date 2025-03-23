@@ -77,7 +77,7 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
       {isLoading ? (
         <Spinner size="xl" />
       ) : books.length > 0 ? (
-        <Flex overflow="scroll" width={'1000px'} gap="4" py="4">
+        <Flex overflow="scroll" width={'100%'} gap="4" py="4">
           {books.map((book: IBook) => (
             <Box
               key={book._id}

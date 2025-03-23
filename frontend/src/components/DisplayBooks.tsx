@@ -8,7 +8,7 @@ const DisplayBooks: React.FC = () => {
     <Accordion.Root collapsible defaultValue={['my-bookshelf']}>
       <Accordion.Item value="my-bookshelf">
         <Accordion.ItemTrigger>
-          <Span flex="1" fontSize={'1.5em'} textAlign={'left'} color={'gray.900'}>My Bookshelf</Span>
+          <Span flex="1" fontSize={'1.5em'} textAlign={'left'} color={'gray.900'} cursor={'pointer'}>My Bookshelf</Span>
         </Accordion.ItemTrigger>
         <Accordion.ItemContent>
           <Accordion.ItemBody>

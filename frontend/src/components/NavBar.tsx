@@ -54,7 +54,7 @@ const NavBar: React.FC<NavBarProps> = ({
   };
 
   return (
-    <Box>
+    <Box width={'1000px'}>
       <Toaster />
       <Tabs.Root defaultValue="home" variant="enclosed" colorScheme="gray">
         <Tabs.List display={'flex'} justifyContent={'space-between'}>
