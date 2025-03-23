@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-import { addBookToUser } from '../services/bookService';
-import { getUsersBooks } from '../services/userBookService';
+import { getUsersBooks, addBookToUser } from '../services/userBookService';
 import { getUserById } from '../services/userService';
 
 export const addBookToUserController = async (
