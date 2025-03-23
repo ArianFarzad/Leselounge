@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import NavBar from '@/components/NavBar';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { IUser } from '@/types/types';
 import UsersLibrary from '@/components/UsersLibrary';
@@ -11,26 +11,23 @@ const HomePage: React.FC = () => {
   const token = localStorage.getItem('token');
   const [user, setUser] = useState<IUser>({ _id: '', email: '', username: '' });
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     try {
-      await axios
-        .get(`http://localhost:5000/api/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Cache-Control': 'no-cache',
-          },
-        })
-        .then((response) => {
-          setUser(response.data.data);
-        });
+      const response = await axios.get(`http://localhost:5000/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Cache-Control': 'no-cache',
+        },
+      });
+      setUser(response.data.data);
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [userId, token]);
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [fetchUser]);
 
   return (
     <>

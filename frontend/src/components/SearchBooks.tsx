@@ -16,7 +16,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { IBook } from '@/types/types';
 import { FiPlus } from 'react-icons/fi';
 import { Toaster, toaster } from './ui/toaster';
@@ -33,6 +33,7 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('reading');
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
 
   const status = [
     { value: 'reading', title: 'Reading' },
@@ -40,7 +41,7 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
     { value: 'onHold', title: 'Paused' },
   ];
 
-  const fetchBook = async (title: string) => {
+  const fetchBook = useCallback(async (title: string) => {
     setIsLoading(true);
     try {
       const response = await axios.get(
@@ -57,11 +58,15 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
-    bookTitle ? fetchBook(bookTitle) : setBooks([]);
-  }, [bookTitle]);
+    if (bookTitle) {
+      fetchBook(bookTitle);
+    } else {
+      setBooks([]);
+    }
+  }, [bookTitle, fetchBook]);
 
   const handleBookSelection = (bookId: string) => {
     setSelectedBooks((prev) =>
@@ -118,73 +123,70 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
                 <Text>No books found.</Text>
               ) : (
                 <For each={books}>
-                  {(book: IBook) => {
-                    const [isImageLoading, setIsImageLoading] = useState(true);
-                    return (
+                  {(book: IBook) => (
+                    <Box
+                      key={book._id}
+                      borderWidth="1px"
+                      p="4"
+                      mb="4"
+                      position="relative"
+                      minH="200px"
+                    >
                       <Box
-                        key={book._id}
-                        borderWidth="1px"
-                        p="4"
-                        mb="4"
-                        position="relative"
-                        minH="200px"
+                        width="150px"
+                        height="200px"
+                        overflow="hidden"
+                        borderRadius="md"
                       >
-                        <Box
-                          width="150px"
-                          height="200px"
-                          overflow="hidden"
-                          borderRadius="md"
-                        >
-                          {isImageLoading && (
-                            <Flex
-                              position="absolute"
-                              top="0"
-                              left="0"
-                              right="0"
-                              bottom="0"
-                              justify="center"
-                              align="center"
-                              bg="rgba(255, 255, 255, 0.8)"
-                            >
-                              <Spinner size="xl" />
-                            </Flex>
-                          )}
-                          <Image
-                            src={book.coverImageUrl || '/default-cover.jpg'}
-                            alt={book.title}
-                            width="100%"
-                            height="100%"
-                            objectFit="cover"
-                            onLoad={() => setIsImageLoading(false)}
-                            onError={() => setIsImageLoading(false)}
-                          />
-                        </Box>
-                        <VStack
-                          position="absolute"
-                          top="4"
-                          left="180px"
-                          alignItems="flex-start"
-                        >
-                          <Text fontWeight="bold" fontSize="lg">
-                            {book.title}
-                          </Text>
-                          <Text color="gray.500" fontSize="md">
-                            {book.author}
-                          </Text>
-                        </VStack>
-                        <Checkbox.Root
-                          position="absolute"
-                          bottom="4"
-                          right="4"
-                          onChange={() => handleBookSelection(book.bookId)}
-                        >
-                          <Checkbox.HiddenInput />
-                          <Checkbox.Control />
-                          <Checkbox.Label>Add to library</Checkbox.Label>
-                        </Checkbox.Root>
+                        {isImageLoading && (
+                          <Flex
+                            position="absolute"
+                            top="0"
+                            left="0"
+                            right="0"
+                            bottom="0"
+                            justify="center"
+                            align="center"
+                            bg="rgba(255, 255, 255, 0.8)"
+                          >
+                            <Spinner size="xl" />
+                          </Flex>
+                        )}
+                        <Image
+                          src={book.coverImageUrl || '/default-cover.jpg'}
+                          alt={book.title}
+                          width="100%"
+                          height="100%"
+                          objectFit="cover"
+                          onLoad={() => setIsImageLoading(false)}
+                          onError={() => setIsImageLoading(false)}
+                        />
                       </Box>
-                    );
-                  }}
+                      <VStack
+                        position="absolute"
+                        top="4"
+                        left="180px"
+                        alignItems="flex-start"
+                      >
+                        <Text fontWeight="bold" fontSize="lg">
+                          {book.title}
+                        </Text>
+                        <Text color="gray.500" fontSize="md">
+                          {book.author}
+                        </Text>
+                      </VStack>
+                      <Checkbox.Root
+                        position="absolute"
+                        bottom="4"
+                        right="4"
+                        onChange={() => handleBookSelection(book.bookId)}
+                      >
+                        <Checkbox.HiddenInput />
+                        <Checkbox.Control />
+                        <Checkbox.Label>Add to library</Checkbox.Label>
+                      </Checkbox.Root>
+                    </Box>
+                  )}
                 </For>
               )}
             </Drawer.Body>

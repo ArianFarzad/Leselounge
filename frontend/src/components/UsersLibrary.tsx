@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { IBook, ApiBookResponse } from '@/types/types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Spinner,
   Image,
@@ -27,7 +27,7 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [selectedBook, setSelectedBook] = useState<IBook | null>(null);
 
-  const fetchBooks = async () => {
+  const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
@@ -58,13 +58,13 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [token, userId]);
 
   useEffect(() => {
     if (userId && token) {
       fetchBooks();
     }
-  }, [userId, token]);
+  }, [userId, token, fetchBooks]);
 
   const handleImageClick = (book: IBook) => {
     setSelectedBook(book);
@@ -119,10 +119,10 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
               <Dialog.Content>
                 <Dialog.Header>
                   <Flex justifyContent="space-between" alignItems="center">
-                  <Dialog.Title>{selectedBook.title}</Dialog.Title>
-                  <Dialog.CloseTrigger asChild>
-                    <CloseButton onClick={handleCloseDialog} size="sm" />
-                  </Dialog.CloseTrigger>
+                    <Dialog.Title>{selectedBook.title}</Dialog.Title>
+                    <Dialog.CloseTrigger asChild>
+                      <CloseButton onClick={handleCloseDialog} size="sm" />
+                    </Dialog.CloseTrigger>
                   </Flex>
                 </Dialog.Header>
                 <Dialog.Body pb="8">
