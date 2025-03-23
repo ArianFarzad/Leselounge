@@ -89,17 +89,20 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
               key={book._id}
               position="relative"
               cursor="pointer"
+              width="200px"
+              height="300px"
               _hover={{ scale: 1.1 }}
             >
               <Tooltip content={book.title}>
-                <Image
-                  objectFit="cover"
-                  maxW="200px"
-                  src={book.coverImageUrl}
-                  alt={book.title}
-                  borderRadius="md"
-                  onClick={() => handleImageClick(book)}
-                />
+              <Image
+                objectFit="cover"
+                width="100%"
+                height="100%"
+                src={book.coverImageUrl}
+                alt={book.title}
+                borderRadius="md"
+                onClick={() => handleImageClick(book)}
+              />
               </Tooltip>
             </Box>
           ))}
