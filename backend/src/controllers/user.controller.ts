@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUsersBooks, addBookToUser } from '../services/userBookService';
+import { getUsersBooks, addBookToUser, removeBookFromUser } from '../services/userBookService';
 import { getUserById } from '../services/userService';
 
 export const addBookToUserController = async (
@@ -76,5 +76,21 @@ export const getUserByIdController = async (req: Request, res: Response): Promis
 };
 
 export const deleteUserBookController = async (req: Request, res: Response): Promise<void> => {
+  const { userId, bookId } = req.params;
 
+  try {
+    const userBook = await removeBookFromUser(userId, bookId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Book removed successfully',
+      data: userBook,
+    });
+  } catch (error) {
+    console.error('Error removing book:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to remove book',
+    });
+  }
 };

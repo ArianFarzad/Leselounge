@@ -265,7 +265,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2YzMzY5OWEwNTgyYjljYjI4NGY1YSIsImlhdCI6MTc0MTYzMjgzOSwiZXhwIjoxNzQxNjM2NDM5fQ.s1tD_iK3SccS76abbZ2_NLciPSMYjVTtvE7fAFWHlLY",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -273,7 +273,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/users/67cf33699a0582b9cb284f5a/books",
+							"raw": "http://localhost:5000/api/users/67d736a0439c4209331fb27f/books",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -282,7 +282,7 @@
 							"path": [
 								"api",
 								"users",
-								"67cf33699a0582b9cb284f5a",
+								"67d736a0439c4209331fb27f",
 								"books"
 							]
 						}
@@ -350,6 +350,84 @@
 								"api",
 								"users",
 								"67d0a17faff665bb3b7fd678"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete users book",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "secret",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/users/books/:userId/:bookId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users",
+								"books",
+								":userId",
+								":bookId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								},
+								{
+									"key": "bookId",
+									"value": ""
+								}
 							]
 						}
 					},

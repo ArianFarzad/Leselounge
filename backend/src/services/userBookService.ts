@@ -25,3 +25,13 @@ export const addBookToUser = async (
   await userBook.save();
   return userBook;
 };
+
+export const removeBookFromUser = async (userId: string, bookId: string) => {
+  const userBook = await UserBook.findOneAndDelete({ userId, bookId });
+
+  if (!userBook) {
+    throw new Error('User book not found');
+  }
+
+  return userBook;
+}
