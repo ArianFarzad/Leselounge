@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { Box, Button, Input, VStack, Heading, Text } from '@chakra-ui/react';
 import {
-  FormLabel,
-  FormControl,
-  FormErrorMessage,
-} from '@chakra-ui/form-control';
+  Box,
+  Button,
+  Input,
+  VStack,
+  Heading,
+  Text,
+  Field,
+} from '@chakra-ui/react';
+import { PasswordInput } from './ui/password-input';
 import { Toaster, toaster } from '@/components/ui/toaster';
 import { FiLogIn } from 'react-icons/fi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -43,6 +46,8 @@ const Register = () => {
         password,
       });
 
+      navigate('/login');
+
       toaster.create({ title: 'Account created', type: 'success' });
     } catch (err: unknown) {
       if (axios.isAxiosError(err) && err.response) {
@@ -57,16 +62,16 @@ const Register = () => {
           setUsernameError(usernameError);
         } else if (passwordError) {
           setPasswordError(passwordError);
-        } else {
-          toaster.create({ title: err.response.data?.message, type: 'error' });
         }
+      } else {
+        toaster.create({ title: 'Registration failed', type: 'error' });
       }
     }
   };
 
   const handleNavigateToLogin = () => {
-    navigate('/login')
-  }
+    navigate('/login');
+  };
 
   return (
     <Box
@@ -87,74 +92,50 @@ const Register = () => {
         <Heading as="h1" size="3xl" textAlign="center" mb={6} color={'Black'}>
           Start your journey with us
         </Heading>
-        <FormControl id="username" isInvalid={isUsernameInvalid}>
-          <FormLabel color={'Black'}>Username</FormLabel>
+        <Field.Root invalid={isUsernameInvalid}>
+          <Field.Label color={'black'}>Username</Field.Label>
           <Input
-            type="text"
-            value={username}
+            placeholder="my_username"
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Your username"
-            size="lg"
+            _focus={{ borderWidth: '2px' }}
+            color={'Black'}
             borderColor={isUsernameInvalid ? 'red.500' : 'Black'}
-            transition="border-color 0.3s ease-in-out"
-            color={'Black'}
-            _focus={{ borderColor: 'green.700' }}
           />
-          {isUsernameInvalid && (
-            <FormErrorMessage textColor={'red'}>
-              {usernameError}
-            </FormErrorMessage>
-          )}
-        </FormControl>
-        <FormControl id="email" isInvalid={isEmailInvalid}>
-          <FormLabel color={'Black'}>Email</FormLabel>
+          <Field.ErrorText>{usernameError}</Field.ErrorText>
+        </Field.Root>
+        <Field.Root invalid={isEmailInvalid}>
+          <Field.Label color={'black'}>Email</Field.Label>
           <Input
-            type="email"
-            value={email}
+            placeholder="me@example.com"
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email"
-            size="lg"
+            _focus={{ borderWidth: '2px' }}
+            color={'Black'}
             borderColor={isEmailInvalid ? 'red.500' : 'Black'}
-            transition="border-color 0.3s ease-in-out"
-            color={'Black'}
-            _focus={{ borderColor: 'green.700' }}
           />
-          {isEmailInvalid && (
-            <FormErrorMessage textColor={'red'}>{emailError}</FormErrorMessage>
-          )}
-        </FormControl>
-        <FormControl id="password" isInvalid={isPasswordInvalid}>
-          <FormLabel color={'Black'}>Password</FormLabel>
-          <Input
-            type="password"
-            value={password}
+          <Field.ErrorText>{emailError}</Field.ErrorText>
+        </Field.Root>
+        <Field.Root invalid={isPasswordInvalid}>
+          <Field.Label color={'black'}>Password</Field.Label>
+          <PasswordInput
+            placeholder="mySecurePassword"
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your password"
-            size="lg"
+            _focus={{ borderWidth: '2px' }}
+            color={'Black'}
             borderColor={isPasswordInvalid ? 'red.500' : 'Black'}
-            transition="border-color 0.3s ease-in-out"
-            color={'Black'}
-            _focus={{ borderColor: 'green.700' }}
           />
-          {isPasswordInvalid && (
-            <FormErrorMessage textColor={'red'}>
-              {passwordError}
-            </FormErrorMessage>
-          )}
-        </FormControl>
-        <FormControl id="repeatPassword">
-          <FormLabel color={'Black'}>Confirm password</FormLabel>
-          <Input
-            type="password"
-            value={repeatPassword}
+          <Field.ErrorText>{passwordError}</Field.ErrorText>
+        </Field.Root>
+        <Field.Root invalid={isPasswordInvalid}>
+          <Field.Label color={'black'}>Repeat Password</Field.Label>
+          <PasswordInput
+            placeholder="Confirm: mySecurePassword"
             onChange={(e) => setRepeatPassword(e.target.value)}
-            placeholder="Confirm your password"
-            size="lg"
-            borderColor="Black"
+            _focus={{ borderWidth: '2px' }}
             color={'Black'}
-            _focus={{ borderColor: 'green.700' }}
+            borderColor={isPasswordInvalid ? 'red.500' : 'Black'}
           />
-        </FormControl>
+          <Field.ErrorText>{passwordError}</Field.ErrorText>
+        </Field.Root>
         <Button
           colorScheme="teal"
           onClick={handleRegister}
