@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { addBookToUser } from '../services/bookService';
-import UserBook from '../models/UserBook';
+import { getUsersBooks } from '../services/userBookService';
 import { getUserById } from '../services/userService';
 
 export const addBookToUserController = async (
@@ -32,7 +32,7 @@ export const getUserBooksController = async (
   const { userId } = req.params;
 
   try {
-    const userBooks = await UserBook.find({ userId }).populate('bookId').exec();
+    const userBooks = await getUsersBooks(userId);
 
     res.status(200).json({
       success: true,
@@ -74,4 +74,8 @@ export const getUserByIdController = async (req: Request, res: Response): Promis
       message: 'Failed to fetch user',
     });
   }
+};
+
+export const deleteUserBookController = async (req: Request, res: Response): Promise<void> => {
+
 };
