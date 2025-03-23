@@ -94,15 +94,15 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
               _hover={{ scale: 1.1 }}
             >
               <Tooltip content={book.title}>
-              <Image
-                objectFit="cover"
-                width="100%"
-                height="100%"
-                src={book.coverImageUrl}
-                alt={book.title}
-                borderRadius="md"
-                onClick={() => handleImageClick(book)}
-              />
+                <Image
+                  objectFit="cover"
+                  width="100%"
+                  height="100%"
+                  src={book.coverImageUrl}
+                  alt={book.title}
+                  borderRadius="md"
+                  onClick={() => handleImageClick(book)}
+                />
               </Tooltip>
             </Box>
           ))}
@@ -118,7 +118,12 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
             <Dialog.Positioner>
               <Dialog.Content>
                 <Dialog.Header>
+                  <Flex justifyContent="space-between" alignItems="center">
                   <Dialog.Title>{selectedBook.title}</Dialog.Title>
+                  <Dialog.CloseTrigger asChild>
+                    <CloseButton onClick={handleCloseDialog} size="sm" />
+                  </Dialog.CloseTrigger>
+                  </Flex>
                 </Dialog.Header>
                 <Dialog.Body pb="8">
                   <DataList.Root orientation="horizontal">
@@ -138,9 +143,6 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
                     </DataList.Item>
                   </DataList.Root>
                 </Dialog.Body>
-                <Dialog.CloseTrigger asChild>
-                  <CloseButton onClick={handleCloseDialog} size="sm" />
-                </Dialog.CloseTrigger>
               </Dialog.Content>
             </Dialog.Positioner>
           </Portal>
