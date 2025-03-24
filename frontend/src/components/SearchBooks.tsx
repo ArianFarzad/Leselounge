@@ -41,24 +41,27 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
     { value: 'onHold', title: 'Paused' },
   ];
 
-  const fetchBook = useCallback(async (title: string) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/books/title/${title}`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-      if (response.data?.success) {
-        const bookData = response.data.data;
-        setBooks(Array.isArray(bookData) ? bookData : [bookData]);
-      } else setBooks([]);
-    } catch (error) {
-      console.error('Error fetching books:', error);
-      setBooks([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [token]);
+  const fetchBook = useCallback(
+    async (title: string) => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/books/title/${title}`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+        if (response.data?.success) {
+          const bookData = response.data.data;
+          setBooks(Array.isArray(bookData) ? bookData : [bookData]);
+        } else setBooks([]);
+      } catch (error) {
+        console.error('Error fetching books:', error);
+        setBooks([]);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [token],
+  );
 
   useEffect(() => {
     if (bookTitle) {

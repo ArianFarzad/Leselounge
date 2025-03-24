@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
-import { addBookToUser } from '../services/bookService';
-import UserBook from '../models/UserBook';
+import {
+  getUsersBooks,
+  addBookToUser,
+  removeBookFromUser,
+  updateBookStatus,
+} from '../services/userBookService';
 import { getUserById } from '../services/userService';
 
 export const addBookToUserController = async (
@@ -32,7 +36,7 @@ export const getUserBooksController = async (
   const { userId } = req.params;
 
   try {
-    const userBooks = await UserBook.find({ userId }).populate('bookId').exec();
+    const userBooks = await getUsersBooks(userId);
 
     res.status(200).json({
       success: true,
@@ -48,7 +52,10 @@ export const getUserBooksController = async (
   }
 };
 
-export const getUserByIdController = async (req: Request, res: Response): Promise<void> => {
+export const getUserByIdController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { userId } = req.params;
 
   try {
@@ -72,6 +79,52 @@ export const getUserByIdController = async (req: Request, res: Response): Promis
     res.status(500).json({
       success: false,
       message: 'Failed to fetch user',
+    });
+  }
+};
+
+export const deleteUserBookController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { userId, bookId } = req.params;
+
+  try {
+    const userBook = await removeBookFromUser(userId, bookId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Book removed successfully',
+      data: userBook,
+    });
+  } catch (error) {
+    console.error('Error removing book:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to remove book',
+    });
+  }
+};
+
+export const updateUserBookStatusController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { userId, bookId, status } = req.body;
+
+  try {
+    const userBook = await updateBookStatus(userId, bookId, status);
+
+    res.status(200).json({
+      success: true,
+      message: 'Book status updated successfully',
+      data: userBook,
+    });
+  } catch (error) {
+    console.error('Error updating book status:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update book status',
     });
   }
 };

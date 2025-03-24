@@ -1,5 +1,4 @@
 import Book from '../models/Book';
-import UserBook from '../models/UserBook';
 
 const findBookInDatabase = async (bookId: string) => {
   return await Book.findOne({ bookId });
@@ -41,27 +40,6 @@ export const getOrFetchBook = async (bookId: string) => {
   }
 
   return book;
-};
-
-export const addBookToUser = async (
-  userId: string,
-  bookId: string,
-  status: string,
-) => {
-  const book = await getOrFetchBook(bookId);
-
-  if (!book) {
-    throw new Error('Book not found');
-  }
-
-  const userBook = new UserBook({
-    userId,
-    bookId: book._id,
-    status,
-  });
-
-  await userBook.save();
-  return userBook;
 };
 
 const findBookByTitleInDatabase = async (title: string) => {

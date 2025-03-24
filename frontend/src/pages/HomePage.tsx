@@ -13,12 +13,15 @@ const HomePage: React.FC = () => {
 
   const fetchUser = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Cache-Control': 'no-cache',
+      const response = await axios.get(
+        `http://localhost:5000/api/users/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Cache-Control': 'no-cache',
+          },
         },
-      });
+      );
       setUser(response.data.data);
     } catch (error) {
       console.error(error);
