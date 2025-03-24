@@ -20,6 +20,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { IBook } from '@/types/types';
 import { FiPlus } from 'react-icons/fi';
 import { Toaster, toaster } from './ui/toaster';
+import { status } from '@/constants/constants';
 
 interface SearchBooksProps {
   bookTitle: string;
@@ -34,12 +35,6 @@ const SearchBooks: React.FC<SearchBooksProps> = ({ bookTitle, children }) => {
   const [selectedBooks, setSelectedBooks] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>('reading');
   const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
-
-  const status = [
-    { value: 'reading', title: 'Reading' },
-    { value: 'read', title: 'Read' },
-    { value: 'onHold', title: 'Paused' },
-  ];
 
   const fetchBook = useCallback(
     async (title: string) => {

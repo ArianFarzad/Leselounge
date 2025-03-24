@@ -12,8 +12,12 @@ import {
   Portal,
   CloseButton,
   DataList,
+  Separator,
 } from '@chakra-ui/react';
 import { Tooltip } from './ui/tooltip';
+import { FiEdit, FiSave } from 'react-icons/fi';
+import { status } from '@/constants/constants';
+import CostumeRadioCard from './Radio'
 
 interface UsersLibraryProps {
   userId: string | null;
@@ -21,9 +25,10 @@ interface UsersLibraryProps {
 
 const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
   const token = localStorage.getItem('token');
-  const [books, setBooks] = React.useState<IBook[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [books, setBooks] = useState<IBook[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedBook, setSelectedBook] = useState<IBook | null>(null);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const fetchBooks = useCallback(async () => {
     setIsLoading(true);
@@ -70,6 +75,7 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
 
   const handleCloseDialog = () => {
     setSelectedBook(null);
+    setIsEditing(false);
   };
 
   return (
@@ -77,7 +83,13 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
       {isLoading ? (
         <Spinner size="xl" />
       ) : books.length > 0 ? (
-        <Flex overflow="scroll" width={'100%'} gap="4" py="4">
+        <Flex
+          overflow="scroll"
+          width={'100%'}
+          gap="4"
+          py="4"
+          scrollbarWidth="none"
+        >
           {books.map((book: IBook) => (
             <Box
               key={book._id}
@@ -85,7 +97,7 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
               cursor="pointer"
               width="200px"
               height="300px"
-              _hover={{ scale: 1.1 }}
+              _hover={{ transform: 'translateY(10px)' }}
             >
               <Tooltip content={book.title}>
                 <Image
@@ -114,9 +126,32 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
                 <Dialog.Header>
                   <Flex justifyContent="space-between" alignItems="center">
                     <Dialog.Title>{selectedBook.title}</Dialog.Title>
-                    <Dialog.CloseTrigger asChild>
-                      <CloseButton onClick={handleCloseDialog} size="sm" />
-                    </Dialog.CloseTrigger>
+                    <Flex direction={'row'} gap="2" alignItems={'center'}>
+                      {isEditing ? (
+                        <Tooltip content="Save Changes">
+                          <Box
+                            key={selectedBook._id}
+                            cursor="pointer"
+                            onClick={() => setIsEditing(false)}
+                          >
+                            <FiSave size={20} />
+                          </Box>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip content="Edit Book">
+                          <Box
+                            key={selectedBook._id}
+                            cursor="pointer"
+                            onClick={() => setIsEditing(true)}
+                          >
+                            <FiEdit size={20} />
+                          </Box>
+                        </Tooltip>
+                      )}
+                      <Dialog.CloseTrigger asChild>
+                        <CloseButton onClick={handleCloseDialog} size="sm" />
+                      </Dialog.CloseTrigger>
+                    </Flex>
                   </Flex>
                 </Dialog.Header>
                 <Dialog.Body pb="8">
@@ -136,6 +171,12 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
                       </DataList.ItemValue>
                     </DataList.Item>
                   </DataList.Root>
+                  {isEditing && (
+                    <Box mt="4">
+                      <Separator mb="4" />
+                      <CostumeRadioCard items={status} />
+                    </Box>
+                  )}
                 </Dialog.Body>
               </Dialog.Content>
             </Dialog.Positioner>

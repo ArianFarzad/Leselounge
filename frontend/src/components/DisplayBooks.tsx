@@ -9,7 +9,7 @@ const DisplayBooks: React.FC = () => {
     <Accordion.Root collapsible defaultValue={['my-bookshelf']}>
       <Accordion.Item value="my-bookshelf">
         <Accordion.ItemTrigger>
-          <MdLibraryBooks size={25} color="black" cursor={'pointer'}/>
+          <MdLibraryBooks size={25} color="black" cursor={'pointer'} />
           <Span
             flex="1"
             fontSize={'1.5em'}
