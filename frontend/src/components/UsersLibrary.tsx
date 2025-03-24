@@ -174,7 +174,7 @@ const UsersLibrary: React.FC<UsersLibraryProps> = ({ userId }) => {
                   {isEditing && (
                     <Box mt="4">
                       <Separator mb="4" />
-                      <CostumeRadioCard items={status} />
+                      <CostumeRadioCard items={status} label='Change Status' />
                     </Box>
                   )}
                 </Dialog.Body>
