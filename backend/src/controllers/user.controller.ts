@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUsersBooks, addBookToUser, removeBookFromUser } from '../services/userBookService';
+import { getUsersBooks, addBookToUser, removeBookFromUser, updateBookStatus } from '../services/userBookService';
 import { getUserById } from '../services/userService';
 
 export const addBookToUserController = async (
@@ -91,6 +91,29 @@ export const deleteUserBookController = async (req: Request, res: Response): Pro
     res.status(500).json({
       success: false,
       message: 'Failed to remove book',
+    });
+  }
+};
+
+export const updateUserBookStatusController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { userId, bookId, status } = req.body;
+
+  try {
+    const userBook = await updateBookStatus(userId, bookId, status);
+
+    res.status(200).json({
+      success: true,
+      message: 'Book status updated successfully',
+      data: userBook,
+    });
+  } catch (error) {
+    console.error('Error updating book status:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update book status',
     });
   }
 };

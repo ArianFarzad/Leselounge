@@ -8,7 +8,7 @@ export const getUsersBooks = async (userId: string) => {
 export const addBookToUser = async (
   userId: string,
   bookId: string,
-  status: string,
+  status: 'reading' | 'read' | 'onHold',
 ) => {
   const book = await getOrFetchBook(bookId);
 
@@ -33,5 +33,22 @@ export const removeBookFromUser = async (userId: string, bookId: string) => {
     throw new Error('User book not found');
   }
 
+  return userBook;
+}
+
+export const updateBookStatus = async (
+  userId: string,
+  bookId: string,
+  status: 'reading' | 'read' | 'onHold',
+) => {
+  const userBook = await UserBook.findOne({ userId, bookId });
+
+  if (userBook) {
+    userBook.status = status;
+    await userBook.save();
+  }
+  if (!userBook) {
+    throw new Error('User book not found');
+  }
   return userBook;
 }
