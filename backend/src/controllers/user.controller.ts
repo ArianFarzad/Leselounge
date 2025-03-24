@@ -1,5 +1,10 @@
 import { Request, Response } from 'express';
-import { getUsersBooks, addBookToUser, removeBookFromUser, updateBookStatus } from '../services/userBookService';
+import {
+  getUsersBooks,
+  addBookToUser,
+  removeBookFromUser,
+  updateBookStatus,
+} from '../services/userBookService';
 import { getUserById } from '../services/userService';
 
 export const addBookToUserController = async (
@@ -47,7 +52,10 @@ export const getUserBooksController = async (
   }
 };
 
-export const getUserByIdController = async (req: Request, res: Response): Promise<void> => {
+export const getUserByIdController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { userId } = req.params;
 
   try {
@@ -75,7 +83,10 @@ export const getUserByIdController = async (req: Request, res: Response): Promis
   }
 };
 
-export const deleteUserBookController = async (req: Request, res: Response): Promise<void> => {
+export const deleteUserBookController = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { userId, bookId } = req.params;
 
   try {

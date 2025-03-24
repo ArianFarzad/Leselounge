@@ -5,7 +5,7 @@ import {
   getUserBooksController,
   getUserByIdController,
   deleteUserBookController,
-  updateUserBookStatusController
+  updateUserBookStatusController,
 } from '../controllers/user.controller';
 
 const router = Router();

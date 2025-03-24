@@ -3,7 +3,7 @@ import { getOrFetchBook } from './bookService';
 
 export const getUsersBooks = async (userId: string) => {
   return await UserBook.find({ userId }).populate('bookId').exec();
-}
+};
 
 export const addBookToUser = async (
   userId: string,
@@ -34,7 +34,7 @@ export const removeBookFromUser = async (userId: string, bookId: string) => {
   }
 
   return userBook;
-}
+};
 
 export const updateBookStatus = async (
   userId: string,
@@ -51,4 +51,4 @@ export const updateBookStatus = async (
     throw new Error('User book not found');
   }
   return userBook;
-}
+};

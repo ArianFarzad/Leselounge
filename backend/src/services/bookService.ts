@@ -1,5 +1,4 @@
 import Book from '../models/Book';
-import UserBook from '../models/UserBook';
 
 const findBookInDatabase = async (bookId: string) => {
   return await Book.findOne({ bookId });
@@ -42,7 +41,6 @@ export const getOrFetchBook = async (bookId: string) => {
 
   return book;
 };
-
 
 const findBookByTitleInDatabase = async (title: string) => {
   return await Book.findOne({ title: { $regex: title, $options: 'i' } });
